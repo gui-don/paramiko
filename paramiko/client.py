@@ -105,6 +105,7 @@ class SSHClient(ClosingContextManager):
             except IOError:
                 pass
             return
+        self._host_keys_filename = filename
         self._system_host_keys.load(filename)
 
     def load_host_keys(self, filename):
@@ -796,7 +797,7 @@ class AutoAddPolicy(MissingHostKeyPolicy):
     """
 
     def missing_host_key(self, client, hostname, key):
-        client._host_keys.add(hostname, key.get_name(), key)
+        client.get_host_keys().add(hostname, key.get_name(), key)
         if client._host_keys_filename is not None:
             client.save_host_keys(client._host_keys_filename)
         client._log(
