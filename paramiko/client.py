@@ -806,8 +806,8 @@ class AutoAddPolicy(MissingHostKeyPolicy):
 
     def missing_host_key(self, client, hostname, key):
         client.get_host_keys().add(hostname, key.get_name(), key)
-        if client._host_keys_filename is not None:
-            client.save_host_keys(client._host_keys_filename)
+        if client.get_host_keys_filename() is not None:
+            client.save_host_keys(client.get_host_keys_filename())
         client._log(
             DEBUG,
             "Adding {} host key for {}: {}".format(
