@@ -152,6 +152,14 @@ class SSHClient(ClosingContextManager):
                         )
                     )
 
+    def get_host_keys_filename(self):
+        """
+        Get the loaded filename containing all the local host keys.
+
+        :return: the filename containing the host keys.
+        """
+        return self._host_keys_filename
+
     def get_host_keys(self):
         """
         Get the local `.HostKeys` object.  This can be used to examine the
